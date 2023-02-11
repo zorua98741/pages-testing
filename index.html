@@ -8,8 +8,35 @@
 		<p>Paragraph test</p>
 		
 		<p>Javascript test below</p>
-		<button type="button" onclick="document.getElementById('demo').innerHTML = Date()">Click for date & time</button>
-		<p id="demo"></p>
-		<p>End of Javascript test</p>
+		
+		<script>
+			function changeText() {
+				document.getElementById("demo").innerHTML = "Text has been changed";
+			}
+		</script>
+		
+		<p id="demo">Text with id of demo</p>
+		<button type="button" onclick="changeText()">Change Text</button>
+
+		<br><br>
+		<p>Start of HMAC testing</p>
+		
+		<script type="text/javascript" src="sha.js">
+			const jsSHA = require("jssha");
+		</script>
+		
+		<script>
+			function test() {
+				const shaObj = new jsSHA("SHA-1", "TEXT", {
+					hmacKey: {value: "F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0", format: "HEX"},
+				});
+				shaObj.update("CUSA00001_00");
+				const hmac = shaObj.getHash("HEX");
+				document.getElementById("output").innerHTML = hmac;
+		  }
+		</script>
+		<p id="output">Output</p>
+		<button type="button" onclick="test('F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0', 'CUSA00001_00')">Do it</button>
+		<p>End of HMAC testing</p>
 	</body>
 </html>
