@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
+	<style>
+		table, th, td {
+		  border:1px solid black;
+		  border-collapse: collapse;
+		}
+	</style>
 	<head>
 		<title>Github Pages testing</title>
+		<!-- https://caligatio.github.io/jsSHA/ -->
 		<script type="text/javascript" src="sha.js">
 			const jsSHA = require("jssha");
 		</script>
@@ -17,7 +24,6 @@
 		<br>
 		<p>Javascript test below</p>
 		
-
 		<script>
 			function generateHash() {
 				const shaObj = new jsSHA("SHA-1", "TEXT", {
@@ -34,14 +40,29 @@
 				let hmac = shaObj.getHash("HEX");
 				let output = hmac.toUpperCase();
 				document.getElementById("output").innerHTML = output;
-				
 				document.getElementById("input").innerHTML = inputUpper;
-		  }
+			}
 		</script>
 		
 		<input type="text" size="20" id="titleIDText" onkeyup="generateHash()">
-		<p id="input">___</p>
-		<p id="output">Output</p>
+		<select id="platform" onchange="none()">
+			<option>PS3 (XML)</opiton>
+			<option>PS4 (JSON)</option>
+		</select>
+		
+		<br><br>
+		<table>
+			<tr>
+				<th>Input</th>
+				<th>Output</th>
+			</tr>
+			<tr>
+				<td><p id="input">___</p></td>
+				<td><p id="output">Output</p></td>
+			</tr>
+		</table>
+		
+		<p id="url">___</p>
 		
 	</body>
 </html>
