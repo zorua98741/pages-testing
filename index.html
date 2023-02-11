@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<title>Github Pages testing</title>
+		<script type="text/javascript" src="sha.js">
+			const jsSHA = require("jssha");
+		</script>
 	</head>
 	<body>
 		<h1>H1</h1>
@@ -14,24 +17,31 @@
 		<br>
 		<p>Javascript test below</p>
 		
-		<script type="text/javascript" src="sha.js">
-			const jsSHA = require("jssha");
-		</script>
-		
+
 		<script>
-			function test() {
+			function generateHash() {
 				const shaObj = new jsSHA("SHA-1", "TEXT", {
 					hmacKey: {value: "F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0", format: "HEX"},
 				});
 				var titleID = document.getElementById("titleIDText");
 				
-				shaObj.update(titleID.value);
-				const hmac = shaObj.getHash("HEX");
-				document.getElementById("output").innerHTML = hmac;
+				let x = titleID.value;
+				let y = "_00";
+				let input = x.concat(y);
+				let inputUpper = input.toUpperCase();
+				
+				shaObj.update(inputUpper);
+				let hmac = shaObj.getHash("HEX");
+				let output = hmac.toUpperCase();
+				document.getElementById("output").innerHTML = output;
+				
+				document.getElementById("input").innerHTML = inputUpper;
 		  }
 		</script>
 		
-		<input type="text" size="20" name="titleIDText" id="titleIDText" onkeyup="test()">
+		<input type="text" size="20" id="titleIDText" onkeyup="generateHash()">
+		<p id="input">___</p>
 		<p id="output">Output</p>
+		
 	</body>
 </html>
