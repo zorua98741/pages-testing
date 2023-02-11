@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Page Title</title>
+		<title>Github Pages testing</title>
 	</head>
 	<body>
-		<h1>Heading test</h1>
-		<p>Paragraph test</p>
-		
+		<h1>H1</h1>
+		<h2>H2</h2>
+		<h3>H3</h3>
+		<h4>H4</h4>
+		<h5>H5</h5>
+		<h6>H6</h6>
+		<p>Paragraph</p>
+		<br>
 		<p>Javascript test below</p>
-		
-		<script>
-			function changeText() {
-				document.getElementById("demo").innerHTML = "Text has been changed";
-			}
-		</script>
-		
-		<p id="demo">Text with id of demo</p>
-		<button type="button" onclick="changeText()">Change Text</button>
-
-		<br><br>
-		<p>Start of HMAC testing</p>
 		
 		<script type="text/javascript" src="sha.js">
 			const jsSHA = require("jssha");
@@ -30,13 +23,15 @@
 				const shaObj = new jsSHA("SHA-1", "TEXT", {
 					hmacKey: {value: "F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0", format: "HEX"},
 				});
-				shaObj.update("CUSA00001_00");
+				var titleID = document.getElementById("titleIDText");
+				
+				shaObj.update(titleID.value);
 				const hmac = shaObj.getHash("HEX");
 				document.getElementById("output").innerHTML = hmac;
 		  }
 		</script>
+		
+		<input type="text" size="20" name="titleIDText" id="titleIDText" onkeyup="test()">
 		<p id="output">Output</p>
-		<button type="button" onclick="test('F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0', 'CUSA00001_00')">Do it</button>
-		<p>End of HMAC testing</p>
 	</body>
 </html>
