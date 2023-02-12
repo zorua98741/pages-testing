@@ -44,8 +44,8 @@
 			}
 		</script>
 		
-		<input type="text" size="20" id="titleIDText" onkeyup="generateHash()">
-		<select id="platform" onchange="none()">
+		<input type="text" size="20" id="titleIDText" onkeyup="generateHash(); generateURL();">
+		<select id="platform" onchange="generateURL()">
 			<option>PS3 (XML)</opiton>
 			<option>PS4 (JSON)</option>
 		</select>
@@ -58,11 +58,29 @@
 			</tr>
 			<tr>
 				<td><p id="input">___</p></td>
-				<td><p id="output">Output</p></td>
+				<td><p id="output">___</p></td>
 			</tr>
 		</table>
+		<a href="" id="url" target="_blank">___</a>
 		
-		<p id="url">___</p>
-		
+		<script>
+			function generateURL() {
+				var pType = document.getElementById("platform").value;
+				if (pType == "PS4 (JSON)") {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb2/"
+					var extension = ".json"
+				} else {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb/"
+					var extension = ".xml"
+				}
+				var titleID = document.getElementById("input").textContent;
+				if (titleID != "___") { 	//stop incomplete link from being generated and shown
+					var hash = document.getElementById("output").textContent;
+					var genURL = tmdb + titleID + "_" + hash + "/" + titleID + extension;
+					document.getElementById("url").innerHTML = genURL;
+					document.getElementById("url").href = genURL;
+				}
+			}
+		</script>
 	</body>
 </html>
