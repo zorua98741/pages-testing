@@ -42,28 +42,6 @@
 				document.getElementById("output").innerHTML = output;
 				document.getElementById("input").innerHTML = inputUpper;
 			}
-		</script>
-		
-		<input type="text" size="20" id="titleIDText" onkeyup="generateHash(); generateURL();">
-		<select id="platform" onchange="generateURL()">
-			<option>PS3 (XML)</opiton>
-			<option>PS4 (JSON)</option>
-		</select>
-		
-		<br><br>
-		<table>
-			<tr>
-				<th>Input</th>
-				<th>Output</th>
-			</tr>
-			<tr>
-				<td><p id="input">___</p></td>
-				<td><p id="output">___</p></td>
-			</tr>
-		</table>
-		<a href="" id="url" target="_blank">___</a>
-		
-		<script>
 			function generateURL() {
 				var pType = document.getElementById("platform").value;
 				if (pType == "PS4 (JSON)") {
@@ -82,5 +60,24 @@
 				}
 			}
 		</script>
+		
+		<input type="text" size="10" id="titleIDText" onkeyup="generateHash(); generateURL();">
+		<select id="platform" onchange="generateURL()">
+			<option>PS3 (XML)</opiton>
+			<option>PS4 (JSON)</option>
+		</select>
+		
+		<br><br>
+		<table>
+			<tr>
+				<th>Input</th>
+				<th>Output</th>
+			</tr>
+			<tr>
+				<td><p id="input">___</p></td>
+				<td><p id="output">___</p></td>
+			</tr>
+		</table>
+		<a href="" id="url" target="_blank">___</a>
 	</body>
 </html>
