@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		table, th, td {
+		  border:1px solid black;
+		  border-collapse: collapse;
+		}
+	</style>
+	<head>
+		<title>Github Pages testing</title>
+		<!-- https://caligatio.github.io/jsSHA/ -->
+		<script type="text/javascript" src="sha.js">
+			const jsSHA = require("jssha");
+		</script>
+	</head>
+	<body>
+		<h1>H1</h1>
+		<h2>H2</h2>
+		<h3>H3</h3>
+		<h4>H4</h4>
+		<h5>H5</h5>
+		<h6>H6</h6>
+		<p>Paragraph</p>
+		<br>
+		<p>Javascript test below</p>
+		
+		<script>
+			function generateHash() {
+				const shaObj = new jsSHA("SHA-1", "TEXT", {
+					hmacKey: {value: "F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0", format: "HEX"},
+				});
+				var titleID = document.getElementById("titleIDText");
+				
+				let x = titleID.value;
+				let y = "_00";
+				let input = x.concat(y);
+				let inputUpper = input.toUpperCase();
+				
+				shaObj.update(inputUpper);
+				let hmac = shaObj.getHash("HEX");
+				let output = hmac.toUpperCase();
+				document.getElementById("output").innerHTML = output;
+				document.getElementById("input").innerHTML = inputUpper;
+			}
+			function generateURL() {
+				var pType = document.getElementById("platform").value;
+				if (pType == "PS4 (JSON)") {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb2/"
+					var extension = ".json"
+				} else {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb/"
+					var extension = ".xml"
+				}
+				var titleID = document.getElementById("input").textContent;
+				if (titleID != "___") { 	//stop incomplete link from being generated and shown
+					var hash = document.getElementById("output").textContent;
+					var genURL = tmdb + titleID + "_" + hash + "/" + titleID + extension;
+					document.getElementById("url").innerHTML = genURL;
+					document.getElementById("url").href = genURL;
+				}
+			}
+		</script>
+		
+		<input type="text" size="10" id="titleIDText" onkeyup="generateHash(); generateURL();">
+		<select id="platform" onchange="generateURL()">
+			<option>PS3 (XML)</opiton>
+			<option>PS4 (JSON)</option>
+		</select>
+		
+		<br><br>
+		<table>
+			<tr>
+				<th>Input</th>
+				<th>Output</th>
+			</tr>
+			<tr>
+				<td><p id="input">___</p></td>
+				<td><p id="output">___</p></td>
+			</tr>
+		</table>
+		<a href="" id="url" target="_blank">___</a>
+	</body>
+</html>
