@@ -1,14 +1,86 @@
+<!DOCTYPE html>
 <html>
-	<head></head>
+	<style>
+		table, th, td {
+		  border:1px solid black;
+		  border-collapse: collapse;
+		}
+	</style>
+	<head>
+		<title>Github Pages testing</title>
+		<!-- https://caligatio.github.io/jsSHA/ -->
+		<script type="text/javascript" src="sha.js">
+			const jsSHA = require("jssha");
+		</script>
+	</head>
 	<body>
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=4.8400;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/rebug/4842/PS3UPDAT.PUP?REBUG_D-REX_4.84.2; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=4.8200;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/rebug/4822/PS3UPDAT.PUP?REBUG_D-REX_4.82.2; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=4.8400;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/cfw/PASTA_COBRA_CFW_v2_DEX_4_84/PS3UPDAT.PUP?PASTA_COBRA_CFW_v2_DEX_4.84; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=4.7500;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/cfw/PS3ITA_CFW_v1_DEX_4_75/PS3UPDAT.PUP?PS3ITA_CFW_v1_DEX_4.75; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=3.5500;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/cfw/BoZeX_DEX_3_55/PS3UPDAT.PUP?BoZeX_DEX_3.55; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=3.5500;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/ofw/355/PS3UPDAT.PUP?OFW_DEX_3.55; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=3.4100;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/ofw/341/PS3UPDAT.PUP?OFW_DEX_3.41; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=3.2000;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/ofw/320/PS3UPDAT.PUP?OFW_OtherOS_DEX_3.20; 
-		Dest=82;ImageVersion=FFFFFFFF;SystemSoftwareVersion=9.9900;CDN_Timeout=30;CDN=http://ps3upd.at/download/update/ps3/dex/ofw/999/PS3UPDAT.PUP?OFW_Downgrader_DEX_3.55;
+		<h1>H1</h1>
+		<h2>H2</h2>
+		<h3>H3</h3>
+		<h4>H4</h4>
+		<h5>H5</h5>
+		<h6>H6</h6>
+		<p>Paragraph</p>
+		<br>
+		<a href="http://ps3upd.at/download/update/ps3/cex/hfw/4901/PS3UPDAT.PUP">PS3UPDAT.PUP</a>
+		<a href="http://deu01.ps3.update.playstation.net/update/ps3/image/eu/2023_0228_05fe32f5dc8c78acbcd84d36ee7fdc5b/PS3UPDAT.PUP">PS3UPDAT.PUP</a>
+		<br>
+		<p>Javascript test below</p>
+		
+		<script>
+			function generateHash() {
+				const shaObj = new jsSHA("SHA-1", "TEXT", {
+					hmacKey: {value: "F5DE66D2680E255B2DF79E74F890EBF349262F618BCAE2A9ACCDEE5156CE8DF2CDF2D48C71173CDC2594465B87405D197CF1AED3B7E9671EEB56CA6753C2E6B0", format: "HEX"},
+				});
+				var titleID = document.getElementById("titleIDText");
+				
+				let x = titleID.value;
+				let y = "_00";
+				let input = x.concat(y);
+				let inputUpper = input.toUpperCase();
+				
+				shaObj.update(inputUpper);
+				let hmac = shaObj.getHash("HEX");
+				let output = hmac.toUpperCase();
+				document.getElementById("output").innerHTML = output;
+				document.getElementById("input").innerHTML = inputUpper;
+			}
+			function generateURL() {
+				var pType = document.getElementById("platform").value;
+				if (pType == "PS4 (JSON)") {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb2/"
+					var extension = ".json"
+				} else {
+					var tmdb = "http://tmdb.np.dl.playstation.net/tmdb/"
+					var extension = ".xml"
+				}
+				var titleID = document.getElementById("input").textContent;
+				if (titleID != "___") { 	//stop incomplete link from being generated and shown
+					var hash = document.getElementById("output").textContent;
+					var genURL = tmdb + titleID + "_" + hash + "/" + titleID + extension;
+					document.getElementById("url").innerHTML = genURL;
+					document.getElementById("url").href = genURL;
+				}
+			}
+		</script>
+		
+		<input type="text" size="10" id="titleIDText" onkeyup="generateHash(); generateURL();">
+		<select id="platform" onchange="generateURL()">
+			<option>PS3 (XML)</opiton>
+			<option>PS4 (JSON)</option>
+		</select>
+		
+		<br><br>
+		<table>
+			<tr>
+				<th>Input</th>
+				<th>Output</th>
+			</tr>
+			<tr>
+				<td><p id="input">___</p></td>
+				<td><p id="output">___</p></td>
+			</tr>
+		</table>
+		<a href="" id="url" target="_blank">___</a>
 	</body>
 </html>
