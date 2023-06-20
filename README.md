@@ -1,3 +1,3 @@
 # pages-testing
  
-![test](https://i.imgur.com/Voz3cKk.jpg)
+![test](https://github.com/zorua98741/PS3-Rich-Presence-for-Discord/blob/main/img/xmb.png?raw=true)
